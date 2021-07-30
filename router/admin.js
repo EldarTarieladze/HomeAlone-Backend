@@ -25,11 +25,24 @@ router.route("/product/:type").get(async (req, res) => {
       break;
   }
 });
+router.route("/deleteprod/:type/:id").get(async (req, res) => {
+  await productSchema.findOneAndUpdate(
+    { productType: req.params.type },
+    { $pull: { products: { _id: req.params.id } } },
+    { new: true },
+    function (err) {
+      if (err) {
+        console.log(err);
+      } else res.json("success");
+    }
+  );
+});
 router.route("/addprod").get(async (req, res) => {
-  //   const product = new productSchema({
-  //     productType: "smart",
-  //   });
-  //   product.save();
+  // const product = new productSchema({
+  //   productType: "video",
+  // });
+  // product.save();
+
   let x = "agwera:kariga;tvinish_sheryeva:true";
   const arr = x.split(";");
   let newarr = [];
@@ -46,11 +59,11 @@ router.route("/addprod").get(async (req, res) => {
     mainImage: "eldari",
   };
 
-  productSchema.findOne({ productType: "smart" }).then((re) => {
+  productSchema.findOne({ productType: "video" }).then((re) => {
     re.products.push(obj);
     re.save().then((responss) => {
       const x = responss.products[responss.products.length - 1];
-      productSchema.findOne({ productType: "smart" }).then((result) => {
+      productSchema.findOne({ productType: "video" }).then((result) => {
         result.products.map((item) => {
           console.log(item);
           console.log(x);
