@@ -29,6 +29,8 @@ mongoose.connect(uri, {
   });
   const Admin = require("./router/admin");
   app.use("/api", Admin);
+  const modifyProduct = require("./router/products");
+  app.use("/products", modifyProduct);
 }
 
 app.listen(PORT, () => {

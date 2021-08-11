@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const productSchema = require("./../schema/product");
+const prodTypeSchema = require("./../schema/productType");
 router.route("/product/:type").get(async (req, res) => {
   switch (req.params.type) {
     case "ic":
@@ -37,49 +38,14 @@ router.route("/deleteprod/:type/:id").get(async (req, res) => {
     }
   );
 });
-router.route("/addprod").get(async (req, res) => {
+router.route("/addprodtype").get(async (req, res) => {
   // const product = new productSchema({
   //   productType: "video",
   // });
   // product.save();
-
-  let x = "agwera:kariga;tvinish_sheryeva:true";
-  const arr = x.split(";");
-  let newarr = [];
-  arr.map((it) => {
-    newarr.push({
-      prop: it.split(":")[0],
-      value: it.split(":")[1],
-    });
-  });
-  const obj = {
-    name: "kaxi",
-    feature: "eldari",
-    properties: newarr,
-    mainImage: "eldari",
-  };
-
-  productSchema.findOne({ productType: "video" }).then((re) => {
-    re.products.push(obj);
-    re.save().then((responss) => {
-      const x = responss.products[responss.products.length - 1];
-      productSchema.findOne({ productType: "video" }).then((result) => {
-        result.products.map((item) => {
-          console.log(item);
-          console.log(x);
-          if (item._id.toString() == x._id.toString()) {
-            ["1", "2", "3", "4", "5", "6", "8", "9"].map((it) => {
-              item.images.push({
-                url: it,
-              });
-            });
-          }
-        });
-        result.save();
-      });
-    });
-  });
-  res.json("success");
+  const prodtype = new prodTypeSchema({
+    products: [],
+  }).save();
 });
 router.route("/getallprod").get(async (req, res) => {
   productSchema.find({}).then((result) => {
