@@ -4,8 +4,8 @@ const app = express();
 const cors = require("cors");
 
 const env = require("./env.json");
-const PORT = env.PORT;
-const BASE_URL = Process.env.PORT || env.BASE_URL;
+const PORT = process.env.PORT || env.PORT;
+const BASE_URL = env.BASE_URL;
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
