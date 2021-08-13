@@ -9,7 +9,7 @@ const BASE_URL = env.BASE_URL;
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + "/images"));
 const uri = BASE_URL;
 mongoose.connect(uri, {
   useNewUrlParser: true,
