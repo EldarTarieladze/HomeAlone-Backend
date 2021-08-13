@@ -2,7 +2,7 @@ const router = require("express").Router();
 const path = require("path");
 const productSchema = require("./../schema/product");
 router.route("/add").post(async (req, res) => {
-  const dir = path.join(__dirname);
+  // const dir = path.join(__dirname);
   const name = req.body.data.name;
   const productIMG = req.body.data.productImg;
   const description = req.body.data.description;
@@ -25,7 +25,7 @@ router.route("/add").post(async (req, res) => {
     thumbIMG.split("/")[1].split(";")[0]
   }`;
   require("fs").writeFile(
-    `${dir}/${name.replace(/\s/g, "") + "_main"}.${
+    `${__dirname}/${name.replace(/\s/g, "") + "_main"}.${
       thumbIMG.split("/")[1].split(";")[0]
     }`,
     base64Data,
@@ -46,7 +46,7 @@ router.route("/add").post(async (req, res) => {
       }`,
     });
     require("fs").writeFile(
-      `${dir}/${name.replace(/\s/g, "") + i}.${
+      `${__dirname}/${name.replace(/\s/g, "") + i}.${
         IMGURL.split("/")[1].split(";")[0]
       }`,
       base64Data,
