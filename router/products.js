@@ -21,9 +21,13 @@ router.route("/add").post(async (req, res) => {
 
   let thumbIGMURL = "";
   let base64Data = thumbIMG.replace(/^data:image\/\w+;base64,/, "");
-  thumbIGMURL = `${name + "_main"}.${thumbIMG.split("/")[1].split(";")[0]}`;
+  thumbIGMURL = `${name.replace(/\s/g, "") + "_main"}.${
+    thumbIMG.split("/")[1].split(";")[0]
+  }`;
   require("fs").writeFile(
-    `${dir}/${name + "_main"}.${thumbIMG.split("/")[1].split(";")[0]}`,
+    `${dir}/${name.replace(/\s/g, "") + "_main"}.${
+      thumbIMG.split("/")[1].split(";")[0]
+    }`,
     base64Data,
     "base64",
     function (err) {
