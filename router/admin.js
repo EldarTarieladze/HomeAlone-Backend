@@ -36,8 +36,8 @@ router.route("/getallprodtype").get(async (req, res) => {
   });
 });
 router.route("/getallprod").get(async (req, res) => {
+  let products = [];
   productSchema.find({}).then((result) => {
-    let products = [];
     result.map((item) => {
       products = [...products, item.products];
     });
