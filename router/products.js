@@ -37,10 +37,14 @@ router.route("/add").post(async (req, res) => {
   productIMG.map((IMGURL, i) => {
     let base64Data = IMGURL.replace(/^data:image\/\w+;base64,/, "");
     imgARR.push({
-      url: `${name + i}.${IMGURL.split("/")[1].split(";")[0]}`,
+      url: `${name.replace(/\s/g, "") + i}.${
+        IMGURL.split("/")[1].split(";")[0]
+      }`,
     });
     require("fs").writeFile(
-      `${dir}/${name + i}.${IMGURL.split("/")[1].split(";")[0]}`,
+      `${dir}/${name.replace(/\s/g, "") + i}.${
+        IMGURL.split("/")[1].split(";")[0]
+      }`,
       base64Data,
       "base64",
       function (err) {
