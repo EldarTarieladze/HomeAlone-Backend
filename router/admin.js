@@ -37,7 +37,11 @@ router.route("/getallprodtype").get(async (req, res) => {
 });
 router.route("/getallprod").get(async (req, res) => {
   productSchema.find({}).then((result) => {
-    res.json(result);
+    let products = [];
+    result.map((item) => {
+      products = [...products, item.products];
+    });
+    res.json(products);
   });
 });
 router.route("/getconcrettypeprod/:type").get(async (req, res) => {
