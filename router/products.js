@@ -21,11 +21,11 @@ router.route("/add").post(async (req, res) => {
 
   let thumbIGMURL = "";
   let base64Data = thumbIMG.replace(/^data:image\/\w+;base64,/, "");
-  thumbIGMURL = `${name.replace(/\s/g, "") + "_main"}.${
+  thumbIGMURL = `${name.replace(/\s/g, "").replace("/", "_") + "_main"}.${
     thumbIMG.split("/")[1].split(";")[0]
   }`;
   require("fs").writeFile(
-    `${__dirname}/${name.replace(/\s/g, "") + "_main"}.${
+    `${__dirname}/${name.replace(/\s/g, "").replace("/", "_") + "_main"}.${
       thumbIMG.split("/")[1].split(";")[0]
     }`,
     base64Data,
@@ -41,12 +41,12 @@ router.route("/add").post(async (req, res) => {
   productIMG.map((IMGURL, i) => {
     let base64Data = IMGURL.replace(/^data:image\/\w+;base64,/, "");
     imgARR.push({
-      url: `${name.replace(/\s/g, "") + i}.${
+      url: `${name.replace(/\s/g, "").replace("/", "_") + i}.${
         IMGURL.split("/")[1].split(";")[0]
       }`,
     });
     require("fs").writeFile(
-      `${__dirname}/${name.replace(/\s/g, "") + i}.${
+      `${__dirname}/${name.replace(/\s/g, "").replace("/", "_") + i}.${
         IMGURL.split("/")[1].split(";")[0]
       }`,
       base64Data,
