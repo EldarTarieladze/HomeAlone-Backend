@@ -49,13 +49,15 @@ router.route("/getconcrettypeprod/:type").get(async (req, res) => {
     res.json(result);
   });
 });
-router.route("/getconcretprod/:type/:id").get(async (req, res) => {
-  productSchema.findOne({ productType: req.params.type }).then((result) => {
+router.route("/getconcretprod/:id").get(async (req, res) => {
+  productSchema.find({}).then((result) => {
     console.log(result);
-    result.products.map((prod) => {
-      if (prod._id.toString() == req.params.id.toString()) {
-        res.json(prod);
-      }
+    result.map((Ptype) => {
+      Ptype.products.map((prod) => {
+        if (prod._id.toString() == req.params.id.toString()) {
+          res.json(prod);
+        }
+      });
     });
   });
 });
