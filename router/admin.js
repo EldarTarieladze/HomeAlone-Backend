@@ -55,7 +55,7 @@ router.route("/getconcretprod/:id").get(async (req, res) => {
     result.map((Ptype) => {
       Ptype.products.map((prod) => {
         if (prod._id.toString() == req.params.id.toString()) {
-          res.json(prod);
+          res.json({ product: prod, productType: Ptype.productType });
         }
       });
     });
