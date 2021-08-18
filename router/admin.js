@@ -45,8 +45,8 @@ router.route("/getallprod").get(async (req, res) => {
   });
 });
 router.route("/getconcrettypeprod/:type").get(async (req, res) => {
-  productSchema.find({ productType: req.params.type }).then((result) => {
-    res.json(result);
+  productSchema.find({ productType: req.params.type }).then(async (result) => {
+    await res.json(result);
   });
 });
 router.route("/getconcretprod/:id").get(async (req, res) => {
