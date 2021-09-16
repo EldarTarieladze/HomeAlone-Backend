@@ -35,7 +35,6 @@ router.route("/add").post(async (req, res) => {
     }
   );
   console.log(req.body.type);
-  // Product image upload
 
   let imgARR = [];
   productIMG.map((IMGURL, i) => {
