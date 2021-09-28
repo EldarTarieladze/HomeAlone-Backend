@@ -1,25 +1,36 @@
 const router = require("express").Router();
 const productSchema = require("./../schema/product");
+const fs = require("fs");
+const path = require("path");
 const prodTypeSchema = require("./../schema/productType");
-router.route("/product").get(async (req, res) => {
-  productSchema.findOne({ productType: "video" }).then((r) => {
-    if (r) {
-      console.log("eldari");
-    } else {
-      console.log("jano");
-    }
-  });
-  res.json("asdad");
+router.route("/123").get(async (req, res) => {
+  let dirE = path.join(__dirname, "../public/images/");
+  fs.unlinkSync(`${dirE}${`1080PIPCAMERA_main.jpeg`}`);
+  res.json("success");
 });
 router.route("/deleteprod/:type/:id").get(async (req, res) => {
+  let dirE = path.join(__dirname, "../public/images/");
+
+  productSchema.findOne({ productType: req.params.type }).then((prod) => {
+    prod.products.map((sProd) => {
+      if (sProd._id == req.params.id) {
+        console.log(sProd._id);
+        fs.unlinkSync(`${dirE}${sProd.mainImage}`);
+        sProd.images.map((img) => {
+          fs.unlinkSync(`${dirE}${img.url}`);
+        });
+      }
+    });
+  });
   await productSchema.findOneAndUpdate(
     { productType: req.params.type },
     { $pull: { products: { _id: req.params.id } } },
     { new: true },
-    function (err) {
+    function (err, result) {
       if (err) {
         console.log(err);
-      } else res.json("success");
+      }
+      res.json("success");
     }
   );
 });

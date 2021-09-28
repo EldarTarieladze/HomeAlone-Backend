@@ -17,6 +17,8 @@ router.route("/add").post(async (req, res) => {
   const featuresRU = req.body.dataRU.featureRU;
   const descriptionRU = req.body.dataRU.descriptionRU;
 
+  const unicProduct = req.body.unicProduct;
+
   // Product Thumb image upload
 
   let thumbIGMURL = "";
@@ -92,6 +94,7 @@ router.route("/add").post(async (req, res) => {
     propertiesGE: newarrGE,
     mainImage: thumbIGMURL,
     images: imgARR,
+    unicProduct: unicProduct,
   };
   let cond = "productType";
   let value = req.body.type;
