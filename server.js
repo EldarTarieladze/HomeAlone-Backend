@@ -24,6 +24,7 @@ mongoose.connect(uri, {
     console.log("connection success");
   });
 
+  //fix: admin panel
   app.get("/", (req, res) => {
     res.send("Hello World!");
   });
