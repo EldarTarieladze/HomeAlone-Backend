@@ -31,6 +31,9 @@ const Images = new mongoose.Schema({
 });
 const Products = new mongoose.Schema({
   unicProduct: String,
+  type: {
+    type: String,
+  }
   name: {
     type: String,
     required: true,
