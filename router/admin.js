@@ -37,9 +37,15 @@ router.route("/deleteprod/:type/:id").get(async (req, res) => {
 router.route("/addprodtype/:id").get(async (req, res) => {
   prodTypeSchema.findOne({}).then((result) => {
     result.prodType.push(req.params.id);
-    result.save();
+    result.save((err, doc) => {
+      if(err){
+        console.log(err)
+      }else{
+        res.json(doc);
+
+      }
+    });
   });
-  res.json("success");
 });
 router.route("/getallprodtype").get(async (req, res) => {
   prodTypeSchema.findOne({}).then((result) => {
