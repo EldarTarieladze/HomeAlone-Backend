@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
-
+const productSchema = require("./schema/product");
 const env = require("./env.json");
 const PORT = process.env.PORT || env.PORT;
 const BASE_URL = env.BASE_URL;
@@ -26,7 +26,7 @@ mongoose.connect(uri, {
 
   //fix: admin panel
   app.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.json("hello world")
   });
   const Admin = require("./router/admin");
   app.use("/api", Admin);

@@ -38,11 +38,10 @@ router.route("/addprodtype/:id").get(async (req, res) => {
   prodTypeSchema.findOne({}).then((result) => {
     result.prodType.push(req.params.id);
     result.save((err, doc) => {
-      if(err){
-        console.log(err)
-      }else{
+      if (err) {
+        console.log(err);
+      } else {
         res.json(doc);
-
       }
     });
   });
@@ -61,10 +60,54 @@ router.route("/getallprod").get(async (req, res) => {
     res.json(products);
   });
 });
+
 router.route("/getconcrettypeprod/:type").get(async (req, res) => {
-  productSchema.find({ productType: req.params.type }).then(async (result) => {
-    await res.json(result);
-  });
+  if (req.params.type === "all-Audio") {
+    /*
+Surface_Mount_Ceiling_Speaker
+Mini_Smart_Music_Host
+Network_Smart_Music_Sys
+Smart_Central_Music_Sys
+Economic_Music_Sys
+Speaker
+EN54_Ceiling_Speaker
+Fireproof_Ceiling_Speaker
+Two-Way_Ceiling_Speaker
+Coaxial_Ceiling_Speaker
+Flush_Mount_Ceiling_Speaker*/
+    const typeArr = [
+      "Audio_Products",
+      "Surface_Mount_Ceiling_Speaker",
+      "Flush_Mount_Ceiling_Speaker",
+      "Coaxial_Ceiling_Speaker",
+      "Fireproof_Ceiling_Speaker",
+      "Two-Way_Ceiling_Speaker",
+      "EN54_Ceiling_Speaker",
+      "Speaker",
+      "Mini_Smart_Music_Host",
+      "Network_Smart_Music_Sys",
+      "Smart_Central_Music_Sys",
+      "Economic_Music_Sys",
+    ];
+    productSchema.find().then((rr) => {
+      let result = [];
+      rr.map(item2 => {
+      typeArr.map((item) => {
+          if (item2.productType === item) {
+            console.log("test")
+            result.push(item2)
+          }
+        })
+      });
+    res.json(result);
+    });
+  } else {
+    productSchema
+      .find({ productType: req.params.type })
+      .then(async (result) => {
+        await res.json(result);
+      });
+  }
 });
 router.route("/getconcretprod/:id").get(async (req, res) => {
   productSchema.find({}).then((result) => {
